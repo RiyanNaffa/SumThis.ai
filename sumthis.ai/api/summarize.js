@@ -1,12 +1,20 @@
-// Helper function to translate using Google Translate (unofficial)
+/**
+ * Function to translate an input text from a language to another using Google Translate API.
+ *
+ * @param   {string}    text        Text in `sourceLang` to be translated.
+ * @param   {string}    sourceLang  Language used in input `text`.
+ * @param   {string}    targetLang  Target language the function translates to.
+ * @returns {string}    Translated text in `targetLang`.
+ */
 async function translateWithGoogle(text, sourceLang, targetLang) {
+    // Mapping from a language label to its Google Translate code
     const langMap = {
         "English": "en",
         "Indonesian": "id",
         "Danish": "da",
         "German": "de",
         "Spanish": "es",
-        "Filipino": "tl", // Filipino uses Tagalog code in Google Translate
+        "Filipino": "tl",
         "French": "fr",
         "Italian": "it",
         "Malay": "ms",
@@ -21,7 +29,7 @@ async function translateWithGoogle(text, sourceLang, targetLang) {
         "Vietnamese": "vi",
         "Turkish": "tr",
         "Arabic": "ar",
-        "Han (Chinese)": "zh", // or "zh-cn" for Simplified Chinese
+        "Han (Chinese)": "zh",
         "Hindi": "hi",
         "Japanese": "ja",
         "Korean": "ko",
@@ -31,6 +39,7 @@ async function translateWithGoogle(text, sourceLang, targetLang) {
     const srcCode = langMap[sourceLang] || sourceLang.toLowerCase();
     const tgtCode = langMap[targetLang] || targetLang.toLowerCase();
     
+    // Google Translate API
     const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${srcCode}&tl=${tgtCode}&dt=t&q=${encodeURIComponent(text)}`;
     
     try {
@@ -48,14 +57,20 @@ async function translateWithGoogle(text, sourceLang, targetLang) {
             }
         }
         
-        return translatedText || text; // fallback to original if translation fails
+        return translatedText || text; // fallback to original text if translation fails
     } catch (error) {
         console.error('Google Translate error:', error);
         return text; // fallback to original text
     }
 }
 
-// Modified version of your code with Google Translate integration
+/**
+ * `/api/summarize` handler function.
+ *
+ * @param   {*}    req         Request.
+ * @param   {*}    res         Response.
+ * @returns {*}    Response with HTTP status and body.
+ */
 export default async function handler(req, res) {
     if (req.method === "POST") {
         const {
@@ -80,6 +95,7 @@ export default async function handler(req, res) {
             let response;
             let summedText = "";
 
+            // Open Router API
             if (api === "openrouter") {
                 response = await fetch(
                     "https://openrouter.ai/api/v1/chat/completions",
@@ -101,26 +117,26 @@ export default async function handler(req, res) {
                     }
                 );
 
+            // Hugging Face Inference
             } else if (api === "huggingface") {
                 let inputTextTranslated = inputText;
 
-                // Check if HuggingFace token exists
                 if (!process.env.HUGGINGFACE_ACCESS_TOKEN) {
                     console.error("HUGGINGFACE_ACCESS_TOKEN environment variable is not set");
                     return res.status(500).json({ error: "HuggingFace API token not configured." });
                 }
 
-                // Step 1: Translate input to English if needed (using Google Translate)
+                // Translate input language to English
                 if (inputLang !== "English") {
                     console.log("Translating input from", inputLang, "to English using Google Translate");
                     inputTextTranslated = await translateWithGoogle(inputText, inputLang, "English");
                     console.log("Translated input:", inputTextTranslated);
                 }
                 
-                // Step 2: Summarize in English
+                // Summarize using specialized model (can only summarize in English)
                 console.log("Making summarization request to model:", model);
                 console.log("Request parameters:", {
-                    max_length: Math.round((Number(maxSummaryLength) || 50) * 1.5),
+                    max_length: Math.round((Number(maxSummaryLength) || 50) * 1.5), // approx. tokens from words
                     input_length: inputTextTranslated.length
                 });
 
@@ -189,7 +205,7 @@ export default async function handler(req, res) {
                 summedText = data[0].summary_text;
                 console.log("Generated summary:", summedText);
 
-                // Step 3: Translate summary to target language if needed (using Google Translate)
+                // Translate summary (English) into target language
                 if (language !== "English") {
                     console.log("Translating summary from English to", language, "using Google Translate");
                     summedText = await translateWithGoogle(summedText, "English", language);
@@ -243,6 +259,7 @@ export default async function handler(req, res) {
             });
         }
     } else {
-        res.status(405).end(); // Method Not Allowed
+        // HTTP method not allowed (other than GET)
+        res.status(405).end();
     }
 }
