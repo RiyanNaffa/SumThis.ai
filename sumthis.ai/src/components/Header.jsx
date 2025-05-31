@@ -10,7 +10,7 @@ const Header = ({ isDark, setIsDark }) => {
         <div className={`flex justify-between items-center p-4 ${isDark ? 'bg-[#9faf86]' : 'bg-[#dbe370]'} transition-colors duration-300`}>
             <div className="flex items-center space-x-4">
                 <div>
-                    <a href="/"><img src="/finfit.svg" alt="Logo" className="h-20 w-auto" style={{ maxHeight: '4rem' }} /></a>
+                    <a href="/"><img src="/sumthis.svg" alt="Logo" className="h-20 w-auto" style={{ maxHeight: '4rem' }} /></a>
                 </div>
                 <div>
                     <a href="/"><h1 className={`text-3xl font-bold transition-colors duration-300 
