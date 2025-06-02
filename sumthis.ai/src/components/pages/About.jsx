@@ -3,8 +3,6 @@ import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import Header from '../Header';
 import Footer from '../Footer';
-import Font from "react-font";
-// import './markdown.css';
 
 const About = () => {
     const [isDark, setIsDark] = useState(() => {
@@ -20,7 +18,6 @@ const About = () => {
         localStorage.setItem("isDark", JSON.stringify(isDark));
     }, [isDark]);
     
-    // const aboutTitle = "# About SumThis.ai";
     const aboutDesc = "**SumThis.ai** is a web-based **AI Text Summarizer** that currently uses free LLM models. Choose your preferenced model, select input language, and select summarizing language. With just a click of a button, your summed up text is ready to go!";
     const aboutPreTable = "## Models Supported:";
 
@@ -42,7 +39,6 @@ const About = () => {
             <Header isDark={isDark} setIsDark={setIsDark} />
             <div style={{ padding: '2rem' }} className="flex-1">
                 <div className={`transition-colors duration-300 ${isDark ? 'text-[#fdfefd]' : 'text-[#020202]'}`}>
-                    {/* Custom styles for markdown elements */}
                     <div className="markdown-content">
                         <style>{`
                             .markdown-content h1 {
@@ -52,9 +48,13 @@ const About = () => {
                                 margin-bottom: 1rem;
                             }
                             .markdown-content h2 {
+                                font-size: 24px;
                                 color: ${isDark ? '#e3bb74' : '#020202'};
                                 margin-top: 2rem;
                                 margin-bottom: 1rem;
+                            }
+                            .markdown-content p {
+                                font-size: 20px;
                             }
                             .markdown-content strong {
                                 color: ${isDark ? '#fcff72' : '#4e7c6f'};
@@ -104,15 +104,14 @@ const About = () => {
                                 border-bottom-right-radius: 8px;
                             }
                         `}</style>
-                        {/* <Markdown remarkPlugins={[remarkGfm]}>
-                            {aboutTitle}
-                        </Markdown> */}
                         <h1 className="flex flex-row">
                             <div className="pb-2">
                                 About 
                             </div>
                             <div className="px-4">
-                                <Font family='Orbitron' weight={600}>SumThis.ai</Font>
+                                <span style={{ fontFamily: 'Orbitron, sans-serif', fontWeight: 600 }}>
+                                    SumThis.ai
+                                </span>
                             </div>
                         </h1>
                         <Markdown remarkPlugins={[remarkGfm]}>

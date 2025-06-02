@@ -1,6 +1,4 @@
 import { AiOutlineSun, AiOutlineMoon } from 'react-icons/ai';
-import Font from "react-font"
-import { useState } from 'react';
 
 const Header = ({ isDark, setIsDark }) => {
     const toggleTheme = () => {
@@ -29,9 +27,9 @@ const Header = ({ isDark, setIsDark }) => {
                         }
                         group-hover:scale-110
                         `}>
-                        <Font family='Orbitron' weight={600}>
+                        <span style={{ fontFamily: 'Orbitron, sans-serif', fontWeight: 600 }}>
                             SumThis.ai
-                        </Font>
+                        </span>
                     </h1>
                     </a>
                 </div>
