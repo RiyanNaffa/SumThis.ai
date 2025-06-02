@@ -1,4 +1,5 @@
 import { AiOutlineSun, AiOutlineMoon } from 'react-icons/ai';
+import Font from "react-font"
 import { useState } from 'react';
 
 const Header = ({ isDark, setIsDark }) => {
@@ -8,19 +9,34 @@ const Header = ({ isDark, setIsDark }) => {
 
     return (
         <div className={`flex justify-between items-center p-4 ${isDark ? 'bg-[#9faf86]' : 'bg-[#dbe370]'} transition-colors duration-300`}>
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-4 pt-8 pl-8 pb-4">
                 <div>
-                    <a href="/"><img src="/sumthis.svg" alt="Logo" className="h-20 w-auto" style={{ maxHeight: '4rem' }} /></a>
+                    <a href="/" className="group">
+                        <img
+                        src="/sumthis.svg"
+                        alt="Logo"
+                        className="h-80 w-auto drop-shadow-[0_8px_9px_#707c5e] transition-transform duration-300 group-hover:scale-110"
+                        style={{ maxHeight: '8rem', minHeight: '2rem' }}
+                        />
+                    </a>
                 </div>
                 <div>
-                    <a href="/"><h1 className={`text-3xl font-bold transition-colors duration-300 
+                    <a href="/" className='group'>
+                    <h1 className={`text-3xl font-extrabold transition-all duration-300 
                         ${isDark 
-                        ? 'text-[#fdfefd] hover:text-[#ffef73]' 
-                        : 'text-[#020202] hover:text-[#fdfefd]'
-                        }`}>SumThis.ai</h1></a>
+                            ? 'text-[#fdfefd] hover:text-[#ffef73]' 
+                            : 'text-[#020202] hover:text-[#fdfefd]'
+                        }
+                        group-hover:scale-110
+                        `}>
+                        <Font family='Orbitron' weight={600}>
+                            SumThis.ai
+                        </Font>
+                    </h1>
+                    </a>
                 </div>
             </div>
-            <div className="flex flex-col items-center space-y-4">
+            <div className="flex flex-col items-center space-y-4 pr-8">
                 <div 
                     className={`p-2 m-4 border-2 rounded-xl cursor-pointer transition-all duration-300 flex justify-center
                         ${isDark 
@@ -30,10 +46,10 @@ const Header = ({ isDark, setIsDark }) => {
                     onClick={toggleTheme}
                 >
                     {isDark ? (
-                        <AiOutlineSun className={`text-[#020202] text-xl transition-colors duration-300
+                        <AiOutlineSun className={`text-[#020202] text-xl transition-all duration-300
                             ${isDark 
-                            ? 'text-[#fdfefd] hover:text-[#ffef73]' 
-                            : 'text-[#020202] hover:text-[#fdfefd]'
+                            ? 'text-[#fdfefd] hover:text-[#ffef73] hover:rotate-45'
+                            : 'text-[#020202] hover:text-[#fdfefd] hover:rotate-45'
                         }`} />
                     ) : (
                         <AiOutlineMoon className={`text-[#020202] text-xl transition-colors duration-300

@@ -10,7 +10,9 @@ const Footer = ({ isDark }) => {
         <p className={`inline-flex text-xs mt-2 ${isDark ? 'text-[#fdfefd]' : 'text-[#020202]'}`}>
           Made with <CgCoffee className={`mx-1 my-0.5 ${isDark ? 'text-[#f0e7a1]' : 'text-[#4e7c6f]'}`}/> by 
           <a 
-            href="https://github.com/RiyanNaffa/" 
+            href="https://github.com/RiyanNaffa/"
+            target="_blank" 
+            rel="noopener noreferrer"
             className={`mx-1 rounded transition-all duration-300
               ${isDark 
                 ? 'hover:bg-[#6ca494] hover:text-[#fdfefd]' 

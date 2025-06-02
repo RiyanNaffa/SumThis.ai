@@ -3,6 +3,7 @@ import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import Header from '../Header';
 import Footer from '../Footer';
+import Font from "react-font";
 // import './markdown.css';
 
 const About = () => {
@@ -19,7 +20,7 @@ const About = () => {
         localStorage.setItem("isDark", JSON.stringify(isDark));
     }, [isDark]);
     
-    const aboutTitle = "# About SumThis.ai";
+    // const aboutTitle = "# About SumThis.ai";
     const aboutDesc = "**SumThis.ai** is a web-based **AI Text Summarizer** that currently uses free LLM models. Choose your preferenced model, select input language, and select summarizing language. With just a click of a button, your summed up text is ready to go!";
     const aboutPreTable = "## Models Supported:";
 
@@ -103,9 +104,17 @@ const About = () => {
                                 border-bottom-right-radius: 8px;
                             }
                         `}</style>
-                        <Markdown remarkPlugins={[remarkGfm]}>
+                        {/* <Markdown remarkPlugins={[remarkGfm]}>
                             {aboutTitle}
-                        </Markdown>
+                        </Markdown> */}
+                        <h1 className="flex flex-row">
+                            <div className="pb-2">
+                                About 
+                            </div>
+                            <div className="px-4">
+                                <Font family='Orbitron' weight={600}>SumThis.ai</Font>
+                            </div>
+                        </h1>
                         <Markdown remarkPlugins={[remarkGfm]}>
                             {aboutDesc}
                         </Markdown>
