@@ -84,7 +84,7 @@ export default async function handler(req, res) {
             summaryHistory = [],
         } = req.body || {};
 
-        console.log("Received request with body:", req.body);
+        // console.log("Received request with body:", req.body);
 
         if (!inputText || inputText.trim() === "") {
             return res.status(400).json({ error: "Input text is required." });
@@ -128,17 +128,17 @@ export default async function handler(req, res) {
 
                 // Translate input language to English
                 if (inputLang !== "English") {
-                    console.log("Translating input from", inputLang, "to English using Google Translate");
+                    // console.log("Translating input from", inputLang, "to English using Google Translate");
                     inputTextTranslated = await translateWithGoogle(inputText, inputLang, "English");
-                    console.log("Translated input:", inputTextTranslated);
+                    // console.log("Translated input:", inputTextTranslated);
                 }
                 
                 // Summarize using specialized model (can only summarize in English)
-                console.log("Making summarization request to model:", model);
-                console.log("Request parameters:", {
-                    max_length: Math.round((Number(maxSummaryLength) || 50) * 1.5), // approx. tokens from words
-                    input_length: inputTextTranslated.length
-                });
+                // console.log("Making summarization request to model:", model);
+                // console.log("Request parameters:", {
+                //     max_length: Math.round((Number(maxSummaryLength) || 50) * 1.5), // approx. tokens from words
+                //     input_length: inputTextTranslated.length
+                // });
 
                 response = await fetch(
                     "https://router.huggingface.co/hf-inference/models/" + model,
@@ -160,7 +160,7 @@ export default async function handler(req, res) {
                     }
                 );
 
-                console.log("Summarization response status:", response.status, response.statusText);
+                // console.log("Summarization response status:", response.status, response.statusText);
 
                 if (!response.ok) {
                     console.error("Summarization failed:", response.status, response.statusText);
@@ -192,7 +192,7 @@ export default async function handler(req, res) {
                     return res.status(500).json({ error: "Invalid JSON response from summarization API." });
                 }
 
-                console.log("Summarization response data:", JSON.stringify(data, null, 2));
+                // console.log("Summarization response data:", JSON.stringify(data, null, 2));
 
                 if (!Array.isArray(data) || !data[0]?.summary_text) {
                     console.error("Unexpected Hugging Face response format:", data);
@@ -203,13 +203,13 @@ export default async function handler(req, res) {
                 }
 
                 summedText = data[0].summary_text;
-                console.log("Generated summary:", summedText);
+                // console.log("Generated summary:", summedText);
 
                 // Translate summary (English) into target language
                 if (language !== "English") {
-                    console.log("Translating summary from English to", language, "using Google Translate");
+                    // console.log("Translating summary from English to", language, "using Google Translate");
                     summedText = await translateWithGoogle(summedText, "English", language);
-                    console.log("Translated summary:", summedText);
+                    // console.log("Translated summary:", summedText);
                 }
             } else {
                 return res.status(400).json({ error: "Unknown API source." });
@@ -246,8 +246,8 @@ export default async function handler(req, res) {
             const newInputHistory = [...inputHistory, inputText].slice(-5);
             const newSummaryHistory = [...summaryHistory, summary].slice(-5);
 
-            console.log("input text:", inputText);
-            console.log("final summary:", summary);
+            // console.log("input text:", inputText);
+            // console.log("final summary:", summary);
 
             res.status(200).json({ summary, inputHistory: newInputHistory, summaryHistory: newSummaryHistory });
         } catch (error) {

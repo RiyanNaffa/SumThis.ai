@@ -39,7 +39,7 @@ const Home = () => {
         const storedUrlHistory = localStorage.getItem("urlHistory");
         const storedTheme = localStorage.getItem("isDark");
         
-        console.log("Get from local storage:", storedInputHistory, storedSummaryHistory, storedUrlHistory, storedTheme);
+        // console.log("Get from local storage:", storedInputHistory, storedSummaryHistory, storedUrlHistory, storedTheme);
 
         let inputHistoryArr = [];
         let summaryHistoryArr = [];
@@ -49,7 +49,7 @@ const Home = () => {
             if (storedInputHistory) inputHistoryArr = JSON.parse(storedInputHistory);
             if (storedSummaryHistory) summaryHistoryArr = JSON.parse(storedSummaryHistory);
             if (storedUrlHistory) urlHistoryArr = JSON.parse(storedUrlHistory);
-            console.log("Is Dark:", storedTheme);
+            // console.log("Is Dark:", storedTheme);
             if (storedTheme) setIsDark(JSON.parse(storedTheme));
         } catch (_) {
             // If parsing fails, fallback to empty array
@@ -62,7 +62,7 @@ const Home = () => {
         setInputHistory(Array.isArray(inputHistoryArr) ? inputHistoryArr.slice(-5) : []);
         setSummaryHistory(Array.isArray(summaryHistoryArr) ? summaryHistoryArr.slice(-5) : []);
         setUrlHistory(Array.isArray(urlHistoryArr) ? urlHistoryArr.slice(-5) : []);
-        console.log("After parsing:", inputHistory, summaryHistory, urlHistory);
+        // console.log("After parsing:", inputHistory, summaryHistory, urlHistory);
     }, []);
 
     // Save theme preference to localStorage whenever it changes
@@ -106,17 +106,6 @@ const Home = () => {
                     inputHistory: inputHistory,
                     summaryHistory: summaryHistory,
                 }),
-            });
-
-            console.log("Sent request with body:", {
-                inputText: inputText,
-                inputLang: inputLang,
-                language: language,
-                maxSummaryLength: maxSummaryLength,
-                model: model.value,
-                api: model.api,
-                inputHistory: inputHistory,
-                summaryHistory: summaryHistory,
             });
 
             // Set the data fetched

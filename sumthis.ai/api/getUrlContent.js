@@ -49,7 +49,6 @@ export default async function handler(req, res) {
 
   try {
     const url = new URL(urlString);
-    console.log("URL hostname:", url.hostname);
 
     const lib = url.protocol === 'https:' ? https : http;
     const html = await fetchUrlContent(url, lib);

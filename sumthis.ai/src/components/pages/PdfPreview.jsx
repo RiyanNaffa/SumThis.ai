@@ -197,7 +197,6 @@ const PdfPreview = () => {
                             <button
                                 className={`mt-4 px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${isDark ? 'bg-[#9faf86] text-[#fdfefd] hover:bg-[#a4e2cd] hover:text-[#020202]' : 'bg-[#6ca494] text-[#fdfefd] hover:bg-[#dbe370] hover:text-[#020202]'}`}
                                 onClick={() => {
-                                    console.log("PDF download initiated");
                                     window.print();
                                 }}
                             >

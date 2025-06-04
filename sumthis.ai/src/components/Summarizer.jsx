@@ -71,7 +71,7 @@ const Summarizer = ({
                 onChange={e => {
                     const selected = MODEL_OPTIONS.find(opt => opt.value === e.target.value);
                     setModel(selected);
-                    console.log("Model changed to:", selected);
+                    // console.log("Model changed to:", selected);
                 }}
                 className={`w-full p-2 border rounded transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-[#6ca494] ${
                     isDark 

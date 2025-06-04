@@ -18,7 +18,7 @@ const About = () => {
         localStorage.setItem("isDark", JSON.stringify(isDark));
     }, [isDark]);
     
-    const aboutDesc = "**SumThis.ai** is a web-based **AI Text Summarizer** that currently uses free LLM models. Choose your preferenced model, select input language, and select summarizing language. With just a click of a button, your summed up text is ready to go!";
+    const aboutDesc = "Introducing **SumThis.ai**, your go-to web-based **AI-Powered Text Summarization Tool** designed to effortlessly condense any text, article, or lengthy document into a clear and concise summary. With just a single click, SumThis.ai transforms overwhelming information into easily digestible insights, saving you time and helping you focus on what truly matters.";
     const aboutPreTable = "## Models Supported:";
 
     const aboutTable = `
